@@ -39,7 +39,7 @@ if choice == "Upload image":
                 
         results = model.predict(source=frame,iou=0.7,conf= conf)
         plot_show =  results[0].plot()
-        get_array = results[0].boxes.numpy().boxes.tolist()
+        get_array = results[0].boxes.numpy().data.tolist()
 
         # function to sort array 
         get_array.sort(key=sort_array_func)
@@ -100,7 +100,7 @@ if choice == "Real Time":
     
         results = model.predict(source=frame,iou=0.7,conf= conf)        
               
-        get_array = results[0].boxes.numpy().boxes.tolist()
+        get_array = results[0].boxes.numpy().data.tolist()
 
         # function to sort array 
         get_array.sort(key=sort_array_func)
