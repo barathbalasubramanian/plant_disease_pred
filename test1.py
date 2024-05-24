@@ -100,7 +100,19 @@ def main():
                 temp_file.close()
 
     elif choice == "Real Time":
-        st.write("Real Time Detection is not implemented yet.")
+        st.write("Starting webcam...")
+        cap = cv2.VideoCapture(0)
+        frame_placeholder = st.empty()
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+            results = detect_diseases(frame, model, conf)
+            annotated_frame = results[0].plot()
+            frame_placeholder.image(annotated_frame, channels="BGR", use_column_width=True)
+            detected_list = [model.names[i] for i in results[0].boxes.cls.tolist()]
+            display_diseases(detected_list)
+        cap.release()
 
 if __name__ == "__main__":
     main()
